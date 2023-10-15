@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+
+    <title>reveal.js</title>
+
+    <link rel="stylesheet" href="dist/reset.css" />
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="dist/theme/sky.css" />
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="plugin/highlight/monokai.css" />
+    <script src="plugin/highlight/highlight.js"></script>
+    <script>
+      Reveal.initialize({
+        plugins: [RevealHighlight],
+      });
+    </script>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h1 class="title">Animation</h1>
+          <aside class="notes">
+            The Animation interface of the Web Animations API represents a
+            single animation player and provides playback controls and a
+            timeline for an animation node or source.
+          </aside>
+        </section>
+        <section>
+          <h2 class="title">Constructor</h2>
+          <h3 class="constructor">Animation()</h3>
+          <aside class="notes">Creates a new Animation object instance.</aside>
+        </section>
+        <section>
+          <section>
+            <h2 class="title">Instance properties</h2>
+            <h3 class="constructor">Animation.currentTime</h3>
+            <aside class="notes">
+              Returns and sets the current time value of the animation in
+              milliseconds, whether running or paused. If the animation lacks a
+              timeline, is inactive or hasn't been played yet, its value is
+              null.
+            </aside>
+          </section>
+          <section>
+            <h3 class="constructor">Animation.effect</h3>
+            <h4>Instance methods</h4>
+            <ul style="font-size: 60%">
+              <li>
+                AnimationEffect.getTiming() - Returns the object associated with
+                the animation containing all the animation's timing values.
+              </li>
+              <li>
+                AnimationEffect.getComputedTiming() - Returns the object
+                associated with the animation containing all the animation's
+                timing values.
+              </li>
+              <li>
+                AnimationEffect.updateTiming() - Updates the specified timing
+                properties of this AnimationEffect.
+              </li>
+            </ul>
+            <aside class="notes">
+              Gets and sets the target effect of an animation. The target effect
+              may be either an effect object of a type based on AnimationEffect,
+              such as KeyframeEffect, or null.
+            </aside>
+          </section>
+          <section>
+            <h3 class="constructor">Animation.finished</h3>
+            <pre>
+				<code data-trim data-noescape class="code">
+              Promise.all(elem.getAnimations().map((animation) =>
+              animation.finished)).then( () => elem.remove(), );
+            </code>
+		    </pre>
+            <aside class="notes">
+              The Animation.finished read-only property of the Web Animations
+              API returns a Promise which resolves once the animation has
+              finished playing.
+            </aside>
+          </section>
+          <section>
+            <h3 class="constructor">Animation.id</h3>
+            <pre>
+				<code data-trim data-noescape class="code">
+					rabbitDownAnimation.id = "rabbitGo"
+            </code>
+		    </pre>
+            <aside class="notes">
+              Gets and sets the String used to identify the animation.
+            </aside>
+          </section>
+          <section>
+            <h3 class="constructor">Animation.pending</h3>
+            <aside class="notes">
+              Indicates whether the animation is currently waiting for an
+              asynchronous operation such as initiating playback or pausing a
+              running animation. True if the animation is pending, false
+              otherwise.
+            </aside>
+          </section>
+          <section>
+            <h3 class="constructor">Animation.playbackRate</h3>
+            <aside class="notes">
+              Returns or sets the playback rate of the animation. True if the
+              animation is pending, false otherwise. The playback rate is
+              initially 1. Takes a number that can be 0, negative, or positive.
+              Negative values reverse the animation. The value is a scaling
+              factor, so for example a value of 2 would double the playback
+              rate.
+            </aside>
+          </section>
+          <section>
+            <h3 class="constructor">Animation.playState</h3>
+            <ul style="font-size: 60%">
+              <li>
+                idle - The current time of the animation is unresolved and there
+                are no pending tasks.
+              </li>
+              <li>running - The animation is running.</li>
+              <li>
+                paused - animation was suspended and the Animation.currentTime
+                property is not updating.
+              </li>
+              <li>
+                finished - The animation has reached one of its boundaries and
+                the Animation.currentTime property is not updating.
+              </li>
+              <aside class="notes">
+                Returns an enumerated value describing the playback state of an
+                animation.
+              </aside>
+            </ul>
+          </section>
+          <section>
+            <h3 class="constructor">Animation.ready</h3>
+            <pre>
+				<code data-trim data-noescape class="code">
+					animation.ready.then(() => {
+						// Do whatever needs to be done when
+						// the animation is ready to run
+					  });
+            </code>
+		    </pre>
+            <aside class="notes">
+              Returns a Promise which resolves when the animation is ready to
+              play.
+            </aside>
+          </section>
+          <section>
+            <h3 class="constructor">Animation.replaceState</h3>
+            <ul style="font-size: 60%">
+              <li>
+                active - The initial value of the animation's replace state when
+                the animation is created.
+              </li>
+              <li>
+                persisted - The animation has been explicitly persisted by
+                invoking Animation.persist() on it.
+              </li>
+              <li>
+                removed - The animation has been removed by the browser
+                automatically.
+              </li>
+            </ul>
+            <aside class="notes">
+              Indicates whether the animation has been removed by the browser
+              automatically after being replaced by another animation.
+            </aside>
+          </section>
+          <section>
+            <h3 class="constructor">Animation: startTime</h3>
+            <aside class="notes">
+              Is a double-precision floating-point value which indicates the
+              scheduled time when an animation's playback should begin
+            </aside>
+          </section>
+          <section>
+            <h3 class="constructor">Animation.timeline</h3>
+            <aside class="notes">
+              Returns or sets the timeline associated with this animation
+            </aside>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2 class="title">Instance methods</h2>
+            <h3 class="constructor">cancel()</h3>
+            <aside class="notes">
+              Clears all KeyframeEffects caused by this animation and aborts its
+              playback.
+            </aside>
+          </section>
+          <section>
+            <h3 class="constructor">commitStyles()</h3>
+            <aside class="notes">
+              Writes the computed values of the animation's current styles into
+              its target element's style attribute. commitStyles() works even if
+              the animation has been automatically removed.
+            </aside>
+          </section>
+          <section>
+            <h3 class="constructor">finish()</h3>
+            <aside class="notes">
+              Sets the current playback time to the end of the animation
+              сorresponding to the current playback direction.
+            </aside>
+          </section>
+          <section>
+            <h3 class="constructor">pause()</h3>
+            <aside class="notes">Suspends playback of the animation.</aside>
+          </section>
+          <section>
+            <h3 class="constructor">persist()</h3>
+            <aside class="notes">
+              Explicitly persists an animation, preventing it from being
+              automatically removed when it is replaced by another animation.
+            </aside>
+          </section>
+          <section>
+            <h3 class="constructor">play()</h3>
+            <aside class="notes">
+              Starts or resumes playing of an animation. If the animation is
+              finished, calling play() restarts the animation, playing it from
+              the beginning.
+            </aside>
+          </section>
+          <section>
+            <h3 class="constructor">reverse()</h3>
+            <aside class="notes">
+              Reverses the playback direction, meaning the animation ends at its
+              beginning. If called on an unplayed animation, the whole animation
+              is played backwards. If called on a paused animation, the
+              animation will continue in reverse
+            </aside>
+          </section>
+          <section>
+            <h3 class="constructor">updatePlaybackRate()</h3>
+            <aside class="notes">
+              Sets the speed of an animation after first synchronizing its
+              playback position.
+            </aside>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2 class="title">Events</h2>
+            <h3 class="constructor">cancel</h3>
+            <pre>
+			<code data-trim data-noescape class="code">
+					addEventListener("cancel", (event) => { })
+					oncancel = (event) => { }
+            </code>
+		    </pre>
+            <aside class="notes">
+              Fired when the Animation.cancel() method is called.
+            </aside>
+          </section>
+          <section>
+            <h3 class="constructor">finish</h3>
+            <pre>
+			<code data-trim data-noescape class="code">
+				addEventListener("finish", (event) => { })
+				onfinish = (event) => { }
+			</code>
+			</pre>
+            <aside class="notes">
+              Fired when the animation finishes playing, either when the
+              animation completes naturally, or when the Animation.finish()
+              method is called to immediately cause the animation to finish up.
+            </aside>
+          </section>
+          <section>
+            <h3 class="constructor">remove</h3>
+            <pre>
+			<code data-trim data-noescape class="code">
+				addEventListener('remove', (event) => { })
+                onremove = (event) => { }
+			</code>
+			</pre>
+            <aside class="notes">
+              Fires when the animation is automatically removed by the browser.
+            </aside>
+          </section>
+        </section>
+        <section>Thank you for your attention :)</section>
+      </div>
+    </div>
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script>
+      // More info about initialization & config:
+      // - https://revealjs.com/initialization/
+      // - https://revealjs.com/config/
+      Reveal.initialize({
+        hash: true,
+
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+      });
+    </script>
+  </body>
+</html>
